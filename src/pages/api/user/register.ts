@@ -1,5 +1,5 @@
-import { signUp } from "@/lib/firebase/service";
 import { NextApiRequest, NextApiResponse } from "next";
+import { signUp } from "@/lib/firebase/service";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   // const { email, password } = req.body;
