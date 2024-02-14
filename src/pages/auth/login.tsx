@@ -54,7 +54,7 @@ const LoginPage = () => {
           {isLoading ? "Loading" : "Login"}
         </button>
         <p>
-          Don't have an account?
+          Dont have an account?
           <Link href={"/auth/register"} className="text-blue-500">
             Register
           </Link>
