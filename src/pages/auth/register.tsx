@@ -21,7 +21,7 @@ const RegiterPage = () => {
     });
 
     if (res.status === 200) {
-      push("/login");
+      push("/auth/login");
     } else {
       console.log("error");
       setIsLoading(false);
@@ -55,7 +55,7 @@ const RegiterPage = () => {
         </button>
         <p>
           Already have an account?
-          <Link href={"/login"} className="text-blue-500">
+          <Link href={"/auth/login"} className="text-blue-500">
             Login
           </Link>
         </p>
