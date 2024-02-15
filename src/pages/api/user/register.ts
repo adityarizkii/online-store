@@ -1,11 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { signUp } from "@/lib/firebase/service";
+import { signUp } from "@/services/auth";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // const { email, password } = req.body;
-  // signUp(email, password).then((user) => {
-  //   res.status(200).json(user);
-  // });
   if (req.method === "POST") {
     await signUp(req.body, (status: boolean) => {
       if (status) {

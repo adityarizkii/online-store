@@ -1,4 +1,4 @@
-import { loginWithGoogle, signIn } from "@/lib/firebase/service";
+import { loginWithGoogle, signIn } from "@/services/auth";
 import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
@@ -20,17 +20,13 @@ const authOptions: NextAuthOptions = {
           password: string;
         };
         // signIn function is only to get data from database
-        const users: any = await signIn(email);
-        if (users.length > 0) {
-          const user = users[0];
-          const confirmPassword = await compare(password, user.password);
+        const user: any = await signIn(email);
+        if (!user) return null;
 
-          if (!confirmPassword) return null;
+        const confirmPassword = await compare(password, user.password);
+        if (!confirmPassword) return null;
 
-          return user;
-        } else {
-          return null;
-        }
+        return user;
       },
     }),
     GoogleProvider({
@@ -53,7 +49,6 @@ const authOptions: NextAuthOptions = {
           email: user.email,
           type: "google",
         };
-
         await loginWithGoogle(data, (data: any) => {
           token.email = data.email;
           token.fullname = data.fullname;
