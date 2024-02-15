@@ -67,6 +67,12 @@ const LoginPage = () => {
       >
         Logout
       </button>
+      <button
+        type="button"
+        onClick={() => signIn("google", { callbackUrl: "/", redirect: false })}
+      >
+        Login with google
+      </button>
     </div>
   );
 };

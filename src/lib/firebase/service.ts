@@ -77,3 +77,29 @@ export async function signIn(email: string) {
 
   return data;
 }
+
+export async function loginWithGoogle(data: any, callback: Function) {
+  const q = query(
+    collection(firestore, "users"),
+    where("email", "==", data.email)
+  );
+  const snapshot = await getDocs(q);
+  const users = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  if (users.length > 0) {
+    callback(users[0]);
+  } else {
+    data.role = "member";
+    await addDoc(collection(firestore, "users"), data)
+      .then(() => {
+        callback(data);
+      })
+      .catch((err) => {
+        callback(false);
+        console.log(err);
+      });
+  }
+}
